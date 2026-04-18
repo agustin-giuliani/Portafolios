@@ -1,0 +1,78 @@
+﻿@using TuProyecto.Models
+@model List<Proyecto>
+
+@{
+    ViewData["Title"] = "Proyectos";
+}
+
+<div class="container py-5">
+    <h1 class="mb-4 text-center" data-aos="zoom-in">
+        <i class="bi bi-folder2-open me-2"></i>Mis Proyectos
+    </h1>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @if (Model.Any())
+        {
+            int delay = 100;
+            foreach (var proyecto in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="@delay">
+                    <div class="card h-100 shadow-sm border-0">
+
+                        <div class="card-body d-flex flex-column">
+
+                            <h5 class="card-title">
+                                <i class="bi bi-laptop-code me-2 text-primary"></i>
+                                @proyecto.Titulo
+                            </h5>
+
+                            <p class="card-text text-muted">
+                                @proyecto.Descripcion
+                            </p>
+
+                            <!-- Tecnologías -->
+                            @if (!string.IsNullOrWhiteSpace(proyecto.Tecnologias))
+                            {
+                                <div class="mb-3">
+                                    @foreach (var tech in proyecto.Tecnologias.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                                    {
+                                        <span class="badge bg-dark me-1">@tech.Trim()</span>
+                                    }
+                                </div>
+                            }
+
+                            <!-- Acciones -->
+                            <div class="mt-auto d-flex gap-2">
+
+                                @if (!string.IsNullOrWhiteSpace(proyecto.Url))
+                                {
+                                    <a href="@proyecto.Url" target="_blank" class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-box-arrow-up-right"></i> Ver
+                                    </a>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(proyecto.ArchivoRuta))
+                                {
+                                    <a asp-action="DescargarArchivo"
+                                       asp-controller="Home"
+                                       asp-route-id="@proyecto.Id"
+                                       class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-download"></i> Descargar
+                                    </a>
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                delay += 100;
+            }
+        }
+        else
+        {
+            <p class="text-center">Aún no hay proyectos cargados.</p>
+        }
+    </div>
+</div>
+

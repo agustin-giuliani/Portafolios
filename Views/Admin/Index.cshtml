@@ -1,0 +1,117 @@
+﻿@using TuProyecto.Models
+@model List<Proyecto>
+
+<div id="contador-visitas"
+     class="card position-fixed top-0 end-0 m-4 shadow user-select-none"
+     style="width: 180px; cursor: move; z-index: 1050;">
+    <div class="card-body text-center p-3">
+        <h6 class="card-title mb-2 text-muted">Total de visitas</h6>
+        <span class="fs-3 fw-bold text-primary">
+            @ViewBag.TotalVisitas
+        </span>
+    </div>
+</div>
+
+@{
+    ViewData["Title"] = "Administrar Proyectos - Dashboard";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4 text-center fw-bold" data-aos="fade-down">
+        <i class="bi bi-tools me-2"></i> Panel de Administración
+    </h2>
+
+    <div class="text-end mb-4" data-aos="fade-up">
+        <a class="btn btn-success" asp-action="Create">
+            <i class="bi bi-plus-circle me-1"></i> Nuevo Proyecto
+        </a>
+    </div>
+
+    <div class="table-responsive" data-aos="zoom-in">
+        <table class="table table-bordered table-hover align-middle shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Título</th>
+                    <th scope="col">Publicado</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var proyecto in Model)
+                {
+                    <tr>
+                        <td>@proyecto.Titulo</td>
+                        <td>
+                            <span class="badge @(proyecto.Publicado ? "bg-success" : "bg-secondary")">
+                                @(proyecto.Publicado ? "Sí" : "No")
+                            </span>
+                        </td>
+                        <td>@proyecto.FechaPublicacion.ToString("dd/MM/yyyy")</td>
+                        <td class="text-center">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                @if (!string.IsNullOrEmpty(proyecto.ArchivoRuta))
+                                {
+                                    <a href="@proyecto.ArchivoRuta" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-download me-1"></i> Descargar
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No disponible</span>
+                                }
+                                <a asp-action="Edit" asp-route-id="@proyecto.Id" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil-square me-1"></i> Editar
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@proyecto.Id" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash me-1"></i> Eliminar
+                                </a>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@* <script>
+    const box = document.getElementById("contador-visitas");
+    let isDragging = false;
+
+    box.addEventListener("mousedown", () => isDragging = true);
+    document.addEventListener("mouseup", () => isDragging = false);
+
+    document.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+            box.style.left = e.pageX - 50 + "px";
+            box.style.top = e.pageY - 20 + "px";
+        }
+    });
+</script> *@
+<script>
+    const box = document.getElementById("contador-visitas");
+
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    box.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        offsetX = e.clientX - box.offsetLeft;
+        offsetY = e.clientY - box.offsetTop;
+    });
+
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+
+        box.style.left = (e.clientX - offsetX) + "px";
+        box.style.top = (e.clientY - offsetY) + "px";
+        box.style.right = "auto"; // 🔑 clave
+    });
+</script>
+

@@ -1,0 +1,50 @@
+﻿@using TuProyecto.Models
+@model Proyecto
+
+@{
+    ViewData["Title"] = "Eliminar Proyecto";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4 text-center text-danger" data-aos="fade-down">
+        <i class="bi bi-exclamation-triangle me-2"></i> Eliminar Proyecto
+    </h2>
+
+    <div class="alert alert-warning" role="alert">
+        ¿Seguro que desea eliminar este proyecto? <br />
+        <strong>@Model.Titulo</strong> será eliminado permanentemente junto con todos sus archivos adjuntos.
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Título</dt>
+        <dd class="col-sm-9">@Model.Titulo</dd>
+
+        <dt class="col-sm-3">Descripción</dt>
+        <dd class="col-sm-9">@Model.Descripcion</dd>
+
+        <dt class="col-sm-3">Tecnologías</dt>
+        <dd class="col-sm-9">@Model.Tecnologias</dd>
+
+        <dt class="col-sm-3">Archivo</dt>
+        <dd class="col-sm-9">
+            @if (!string.IsNullOrEmpty(Model.ArchivoRuta))
+            {
+                <a href="@Model.ArchivoRuta" target="_blank">Descargar archivo</a>
+            }
+            else
+            {
+                <span class="text-muted">Sin archivo</span>
+            }
+        </dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Eliminar
+        </button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">
+            <i class="bi bi-arrow-left-circle"></i> Cancelar
+        </a>
+    </form>
+</div>

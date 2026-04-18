@@ -1,0 +1,96 @@
+﻿@using TuProyecto.Models
+@model Proyecto
+
+@{
+    ViewData["Title"] = "Editar Proyecto";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4 text-center fw-bold" data-aos="fade-down">
+        <i class="bi bi-pencil-square me-2"></i> Editar Proyecto
+    </h2>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8" data-aos="fade-up">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data" class="shadow-sm p-4 rounded bg-light">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="mb-3">
+                    <label asp-for="Titulo" class="form-label">Título</label>
+                    <input asp-for="Titulo" class="form-control" />
+                    <span asp-validation-for="Titulo" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Descripcion" class="form-label">Descripción</label>
+                    <textarea asp-for="Descripcion" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Tecnologias" class="form-label">Tecnologías</label>
+                    <input asp-for="Tecnologias" class="form-control" />
+                    <span asp-validation-for="Tecnologias" class="text-danger"></span>
+                </div>
+
+                <!-- Mostrar URL o Archivo existente -->
+                @if (!string.IsNullOrEmpty(Model.Url))
+                {
+                    <div class="mb-3">
+                        <label class="form-label">URL actual</label>
+                        <div>
+                            <a href="@Model.Url" target="_blank" class="btn btn-outline-info btn-sm">
+                                <i class="bi bi-box-arrow-up-right me-1"></i> Ver proyecto
+                            </a>
+                        </div>
+                    </div>
+                }
+                else if (!string.IsNullOrEmpty(Model.ArchivoRuta))
+                {
+                    <div class="mb-3">
+                        <label class="form-label">Archivo actual</label>
+                        <div>
+                            <a href="@Model.ArchivoRuta" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-download me-1"></i> Descargar archivo
+                            </a>
+                        </div>
+                    </div>
+                }
+
+                <!-- Editar URL -->
+                <div class="mb-3">
+                    <label asp-for="Url" class="form-label">URL del Proyecto (opcional)</label>
+                    <input asp-for="Url" class="form-control" type="text" />
+                    <span asp-validation-for="Url" class="text-danger"></span>
+                </div>
+
+                <!-- Subir archivo nuevo -->
+                <div class="mb-3">
+                    <label class="form-label">Reemplazar archivo (opcional)</label>
+                    <input type="file" name="ArchivoProyecto" class="form-control" />
+                    <small class="form-text text-muted">PDF, ZIP, PNG, JPG, XLSX, PBIX (máx 20 MB)</small>
+                </div>
+
+                <div class="form-check form-switch mb-4">
+                    <input asp-for="Publicado" class="form-check-input" type="checkbox" />
+                    <label asp-for="Publicado" class="form-check-label">¿Publicado?</label>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i> Guardar Cambios
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary ms-2">
+                        <i class="bi bi-arrow-left-circle me-1"></i> Volver
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

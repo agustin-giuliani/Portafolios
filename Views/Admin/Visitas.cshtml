@@ -1,0 +1,55 @@
+﻿@using TuProyecto.Models
+@model List<Visita>
+
+@{
+    string GetBrowser(string ua)
+    {
+        if (string.IsNullOrEmpty(ua)) return "Desconocido";
+        if (ua.Contains("Edg")) return "Edge";
+        if (ua.Contains("Chrome")) return "Chrome";
+        if (ua.Contains("Firefox")) return "Firefox";
+        if (ua.Contains("Safari")) return "Safari";
+        return "Otro";
+    }
+}
+
+<h2>Visitas al sitio</h2>
+<!-- 🔍 FILTRO -->
+<input type="text"
+       class="form-control mb-3"
+       placeholder="Filtrar por página..."
+       onkeyup="filtrarTabla(this.value)">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Página</th>
+            <th>Navegador</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model)
+        {
+            <tr>
+                <td>@v.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@v.Pagina</td>
+                <td>
+                    @GetBrowser(v.UserAgent)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function filtrarTabla(valor) {
+        const filas = document.querySelectorAll("tbody tr");
+        valor = valor.toLowerCase();
+
+        filas.forEach(fila => {
+            const pagina = fila.children[1].innerText.toLowerCase();
+            fila.style.display = pagina.includes(valor) ? "" : "none";
+        });
+    }
+</script>
+
+

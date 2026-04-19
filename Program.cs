@@ -64,26 +64,26 @@ using (var scope = app.Services.CreateScope())
 }
 
 //borrar despues
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<PortafolioContext>();
-    db.Database.Migrate();
+//using (var scope = app.Services.CreateScope())
+//{
+//    var db = scope.ServiceProvider.GetRequiredService<PortafolioContext>();
+//    db.Database.Migrate();
 
-    // Crear admin si no existe
-    if (!db.Usuarios.Any())
-    {
-        var admin = new Usuario
-        {
-            Email = "agustingiuliani45giuliani@gmail.com",
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Vevo1200."),
-            Rol = "Admin",
-            FechaCreacion = DateTime.UtcNow
-        };
+//    // Crear admin si no existe
+//    if (!db.Usuarios.Any())
+//    {
+//        var admin = new Usuario
+//        {
+//            Email = "tu mail",
+//            PasswordHash = BCrypt.Net.BCrypt.HashPassword("tu  pasword "),
+//            Rol = "Admin",
+//            FechaCreacion = DateTime.UtcNow
+//        };
 
-        db.Usuarios.Add(admin);
-        db.SaveChanges();
-    }
-}
+//        db.Usuarios.Add(admin);
+//        db.SaveChanges();
+//    }
+//}
 
 app.MapControllerRoute(
     name: "default",

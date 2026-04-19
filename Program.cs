@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Portafolio.Models;
+using TuProyecto.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 // Aquí agregas servicios al contenedor, por ejemplo:
@@ -60,6 +61,28 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<PortafolioContext>();
     db.Database.Migrate();
+}
+
+//borrar despues
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<PortafolioContext>();
+    db.Database.Migrate();
+
+    // Crear admin si no existe
+    if (!db.Usuarios.Any())
+    {
+        var admin = new Usuario
+        {
+            Email = "agustingiuliani45giuliani@gmail.com",
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Vevo1200."),
+            Rol = "Admin",
+            FechaCreacion = DateTime.UtcNow
+        };
+
+        db.Usuarios.Add(admin);
+        db.SaveChanges();
+    }
 }
 
 app.MapControllerRoute(

@@ -8,7 +8,7 @@ namespace TuProyecto.Models
 
         public string? Ip { get; set; }  // Coincide con la columna "Ip" en SQL
 
-        public DateTime Fecha { get; set; } = DateTime.Now;
+        public DateTime Fecha { get; set; } = DateTime.UtcNow;
 
         public string Pagina { get; set; } = ""; // Coincide con la columna "Pagina" en SQL
 

@@ -13,7 +13,7 @@ namespace TuProyecto.Models
         public string? Url { get; set; }
         public string Tecnologias { get; set; }
         public bool Publicado { get; set; }
-        public DateTime FechaPublicacion { get; set; } = DateTime.Now;
+        public DateTime FechaPublicacion { get; set; } = DateTime.UtcNow;
 
         // Nueva propiedad para la ruta del archivo
         [BindNever] // Evita que se intente asignar desde el form

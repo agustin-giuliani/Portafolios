@@ -18,6 +18,6 @@ namespace TuProyecto.Models
         [Required]
         public string Rol { get; set; } // "Admin", "User"
 
-        public DateTime FechaCreacion { get; set; } = DateTime.Now;
+        public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
     }
 }

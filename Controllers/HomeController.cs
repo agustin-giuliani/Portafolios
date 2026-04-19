@@ -68,7 +68,7 @@ namespace Portafolio.Controllers
             var visita = new Visita
             {
                 Ip = ipEnmascarada,
-                Fecha = DateTime.Now,
+                Fecha = DateTime.UtcNow,
                 Pagina = pagina,
                 UserAgent = userAgent
             };

@@ -3,8 +3,15 @@ using Portafolio.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 // Aquí agregas servicios al contenedor, por ejemplo:
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
+}
+
 builder.Services.AddDbContext<PortafolioContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

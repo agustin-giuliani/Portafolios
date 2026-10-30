@@ -72,15 +72,23 @@ using (var scope = app.Services.CreateScope())
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<PortafolioContext>();
+
+    // Aplicar migraciones pendientes
     db.Database.Migrate();
 
-    // Crear admin si no existe
-    if (!db.Usuarios.Any())
+    // Obtener credenciales desde variables de entorno
+    var adminEmail = Environment.GetEnvironmentVariable("ADMIN_EMAIL");
+    var adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
+
+    // Crear administrador si no existe
+    if (!string.IsNullOrWhiteSpace(adminEmail) &&
+        !string.IsNullOrWhiteSpace(adminPassword) &&
+        !db.Usuarios.Any(u => u.Email == adminEmail))
     {
         var admin = new Usuario
         {
-            Email = "tu mail",
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword("tu  pasword "),
+            Email = adminEmail,
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(adminPassword),
             Rol = "Admin",
             FechaCreacion = DateTime.UtcNow
         };

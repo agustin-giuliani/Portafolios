@@ -62,13 +62,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<PortafolioContext>();
-    db.Database.Migrate();
-}
 
-//borrar despues
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<PortafolioContext>();
@@ -76,27 +70,36 @@ using (var scope = app.Services.CreateScope())
     // Aplicar migraciones pendientes
     db.Database.Migrate();
 
-    // Obtener credenciales desde variables de entorno
-    var adminEmail = Environment.GetEnvironmentVariable("ADMIN_EMAIL");
-    var adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
+    // Obtener credenciales desde la configuración de ASP.NET Core
+    var adminEmail = builder.Configuration["ADMIN_EMAIL"]?.Trim();
+    var adminPassword = builder.Configuration["ADMIN_PASSWORD"];
 
-    // Crear administrador si no existe
     if (!string.IsNullOrWhiteSpace(adminEmail) &&
-        !string.IsNullOrWhiteSpace(adminPassword) &&
-        !db.Usuarios.Any(u => u.Email == adminEmail))
+        !string.IsNullOrWhiteSpace(adminPassword))
     {
-        var admin = new Usuario
-        {
-            Email = adminEmail,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(adminPassword),
-            Rol = "Admin",
-            FechaCreacion = DateTime.UtcNow
-        };
+        // Buscar el administrador real o el usuario de prueba
+        var admin = db.Usuarios.FirstOrDefault(u =>
+            u.Email == adminEmail || u.Email == "tu mail");
 
-        db.Usuarios.Add(admin);
+        if (admin == null)
+        {
+            admin = new Usuario
+            {
+                FechaCreacion = DateTime.UtcNow
+            };
+
+            db.Usuarios.Add(admin);
+        }
+
+        // Crear o actualizar las credenciales
+        admin.Email = adminEmail;
+        admin.PasswordHash = BCrypt.Net.BCrypt.HashPassword(adminPassword);
+        admin.Rol = "Admin";
+
         db.SaveChanges();
     }
 }
+
 
 
 

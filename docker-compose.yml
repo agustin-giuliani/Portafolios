@@ -32,6 +32,7 @@ services:
       - "8080:8080"
     volumes:
       - uploads_data:/app/wwwroot/uploads
+      - dataprotection_data:/root/.aspnet/DataProtection-Keys
     depends_on:
       postgres:
         condition: service_healthy
@@ -39,3 +40,4 @@ services:
 volumes:
   postgres_data:
   uploads_data:
+  dataprotection_data:  

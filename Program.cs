@@ -69,35 +69,6 @@ using (var scope = app.Services.CreateScope())
 
     // Aplicar migraciones pendientes
     db.Database.Migrate();
-
-    // Obtener credenciales desde la configuración de ASP.NET Core
-    var adminEmail = builder.Configuration["ADMIN_EMAIL"]?.Trim();
-    var adminPassword = builder.Configuration["ADMIN_PASSWORD"];
-
-    if (!string.IsNullOrWhiteSpace(adminEmail) &&
-        !string.IsNullOrWhiteSpace(adminPassword))
-    {
-        // Buscar el administrador real o el usuario de prueba
-        var admin = db.Usuarios.FirstOrDefault(u =>
-            u.Email == adminEmail || u.Email == "tu mail");
-
-        if (admin == null)
-        {
-            admin = new Usuario
-            {
-                FechaCreacion = DateTime.UtcNow
-            };
-
-            db.Usuarios.Add(admin);
-        }
-
-        // Crear o actualizar las credenciales
-        admin.Email = adminEmail;
-        admin.PasswordHash = BCrypt.Net.BCrypt.HashPassword(adminPassword);
-        admin.Rol = "Admin";
-
-        db.SaveChanges();
-    }
 }
 
 

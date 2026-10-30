@@ -1,0 +1,39 @@
+﻿
+services:
+  postgres:
+    image: postgres:16
+    container_name: portafolio-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: portafoliodb
+      POSTGRES_USER: portafolio
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portafolio -d portafoliodb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portafolio-web
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=portafoliodb;Username=portafolio;Password=${POSTGRES_PASSWORD}"
+    ports:
+      - "8080:8080"
+    volumes:
+      - uploads_data:/app/wwwroot/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  uploads_data:

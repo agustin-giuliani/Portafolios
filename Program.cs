@@ -25,6 +25,11 @@ if (string.IsNullOrEmpty(connectionString))
             $"Trust Server Certificate=true";
     }
 }
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException(
+        "No se encontró la cadena de conexión a PostgreSQL.");
+}
 builder.Services.AddDbContext<PortafolioContext>(options =>
     options.UseNpgsql(connectionString));
 
@@ -50,7 +55,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
 app.UseRouting();

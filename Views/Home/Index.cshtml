@@ -5,224 +5,212 @@
 @using TuProyecto.Models
 @model Proyecto
 
-<!-- HERO -->
-<section class="hero-section py-5" data-aos="fade-down">
-    <div class="row align-items-center g-5">
+<div class="home-page">
 
-        <div class="col-lg-7 order-2 order-lg-1">
+    <!-- PRESENTACIÓN -->
+    <section class="intro-section" data-aos="fade-up">
 
-            <span class="badge rounded-pill bg-primary-subtle text-primary mb-3 px-3 py-2">
-                <i class="bi bi-code-slash me-1"></i>
-                Desarrollador de Software | Data Analyst
-            </span>
+        <div class="row align-items-center gy-5">
 
-            <h1 class="display-3 fw-bold mb-3">
-                Agustín Giuliani
-            </h1>
+            <div class="col-lg-7">
 
-            <h2 class="h4 text-secondary mb-4">
-                Desarrollo soluciones y transformo datos en información.
-            </h2>
-
-            <p class="text-muted fs-5 mb-4">
-                Técnico Superior en Desarrollo de Software.
-                Experiencia en soporte ERP, consultas SQL,
-                desarrollo backend y análisis de datos.
-            </p>
-
-            <div class="d-flex flex-wrap gap-3">
-
-                <a asp-controller="Home" asp-action="Projects"
-                   class="btn btn-primary btn-lg">
-                    <i class="bi bi-folder2-open me-2"></i>
-                    Ver proyectos
-                </a>
-
-                <a asp-controller="Home" asp-action="Contact"
-                   class="btn btn-outline-dark btn-lg">
-                    <i class="bi bi-envelope me-2"></i>
-                    Contactarme
-                </a>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-5 text-center order-1 order-lg-2">
-
-            <div class="profile-image-container mx-auto">
-                <img src="~/img/agus.jpeg"
-                     alt="Agustín Giuliani"
-                     class="profile-image" />
-            </div>
-
-        </div>
-
-    </div>
-</section>
-
-<!-- SOBRE MI -->
-<section class="py-5" data-aos="fade-up">
-
-    <div class="section-heading mb-4">
-        <span class="text-primary fw-semibold">CONOCEME</span>
-        <h2 class="fw-bold mt-2">Sobre mí</h2>
-    </div>
-
-    <div class="card border-0 shadow-sm">
-        <div class="card-body p-4">
-
-            <p class="text-muted">
-                Trabajo en soporte técnico con sistemas ERP,
-                realizando consultas SQL, validación de datos y
-                análisis de información en entornos reales.
-                Esta experiencia me permitió desarrollar una
-                comprensión sólida de los procesos de negocio
-                y la resolución de problemas.
-            </p>
-
-            <p class="text-muted mb-0">
-                Actualmente continúo ampliando mis conocimientos
-                en desarrollo backend con C# y .NET, bases de datos
-                y análisis de datos con Python y Power BI,
-                aplicándolos en proyectos propios.
-            </p>
-
-        </div>
-    </div>
-
-</section>
-
-<!-- STACK -->
-<section class="py-4" data-aos="fade-up">
-
-    <div class="section-heading mb-4">
-        <span class="text-primary fw-semibold">TECNOLOGÍAS</span>
-        <h2 class="fw-bold mt-2">Stack tecnológico</h2>
-    </div>
-
-    <div class="card border-0 shadow-sm">
-        <div class="card-body p-4">
-
-            <div class="row g-4">
-
-                <div class="col-md-4">
-                    <h6 class="fw-bold mb-3">
-                        <i class="bi bi-code-slash text-primary me-2"></i>
-                        Desarrollo
-                    </h6>
-
-                    <span class="tech-badge">C#</span>
-                    <span class="tech-badge">.NET</span>
-                    <span class="tech-badge">ASP.NET MVC</span>
-                    <span class="tech-badge">Python</span>
+                <div class="intro-label">
+                    <span class="intro-indicator"></span>
+                    PORTFOLIO PROFESIONAL
                 </div>
 
-                <div class="col-md-4">
-                    <h6 class="fw-bold mb-3">
-                        <i class="bi bi-database text-primary me-2"></i>
-                        Bases de datos
-                    </h6>
+                <p class="intro-greeting">Hola, soy</p>
 
-                    <span class="tech-badge">SQL Server</span>
-                    <span class="tech-badge">MySQL</span>
-                    <span class="tech-badge">Firebird</span>
-                    <span class="tech-badge">SQL</span>
-                </div>
+                <h1 class="intro-name">
+                    Agustín <span>Giuliani.</span>
+                </h1>
 
-                <div class="col-md-4">
-                    <h6 class="fw-bold mb-3">
-                        <i class="bi bi-bar-chart text-primary me-2"></i>
-                        Herramientas
-                    </h6>
+                <h2 class="intro-profession">
+                    Técnico Superior en Desarrollo de Software
+                </h2>
 
-                    <span class="tech-badge">Power BI</span>
-                    <span class="tech-badge">Git</span>
-                    <span class="tech-badge">Visual Studio</span>
-                    <span class="tech-badge">IBExpert</span>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-</section>
-
-<!-- PROYECTO DESTACADO -->
-@if (Model != null)
-{
-    <section class="py-5" data-aos="fade-up">
-
-        <div class="section-heading mb-4">
-            <span class="text-primary fw-semibold">MI TRABAJO</span>
-            <h2 class="fw-bold mt-2">Proyecto destacado</h2>
-        </div>
-
-        <div class="card border-0 shadow-sm featured-project">
-
-            <div class="card-body p-4">
-
-                <div class="d-flex align-items-center mb-3">
-                    <div class="project-icon me-3">
-                        <i class="bi bi-laptop"></i>
-                    </div>
-
-                    <div>
-                        <h4 class="fw-bold mb-1">
-                            @Model.Titulo
-                        </h4>
-                        <small class="text-muted">
-                            Proyecto destacado
-                        </small>
-                    </div>
-                </div>
-
-                <p class="text-muted">
-                    @Model.Descripcion
+                <p class="intro-description">
+                    Me desempeño en el ámbito de la tecnología, combinando
+                    soporte técnico de sistemas ERP, análisis funcional y
+                    gestión de información mediante SQL.
                 </p>
 
-                <div class="mb-4">
-                    @foreach (var tech in (Model.Tecnologias ?? "")
-                                    .Split(',', StringSplitOptions.RemoveEmptyEntries))
-                    {
-                        <span class="tech-badge">@tech.Trim()</span>
-                    }
+                <p class="intro-description">
+                    Mi formación en desarrollo de software y mi interés por
+                    el análisis de datos me impulsan a seguir aprendiendo,
+                    explorar nuevas tecnologías y construir soluciones
+                    que respondan a problemas reales.
+                </p>
+
+                <p class="intro-description">
+                    En este espacio comparto mis proyectos, conocimientos
+                    y experiencias. Te invito a conocer mi recorrido
+                    profesional y explorar mi trabajo.
+                </p>
+
+                <div class="intro-actions">
+
+                    <a asp-controller="Home"
+                       asp-action="Projects"
+                       class="btn btn-accent">
+                        <i class="bi bi-folder2-open me-2"></i>
+                        Explorar proyectos
+                    </a>
+
+                    <a asp-controller="Home"
+                       asp-action="About"
+                       class="btn btn-outline-light-custom">
+                        Conocer mi perfil
+                        <i class="bi bi-arrow-up-right ms-2"></i>
+                    </a>
+
                 </div>
 
-                @if (!string.IsNullOrWhiteSpace(Model.Url))
-                {
-                    <a href="@Model.Url"
+                <div class="intro-socials">
+
+                    <span>También podés encontrarme en</span>
+
+                    <a href="https://github.com/agustin-giuliani"
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="btn btn-outline-primary">
-                        <i class="bi bi-box-arrow-up-right me-2"></i>
-                        Ver proyecto
+                       aria-label="GitHub">
+                        <i class="bi bi-github"></i>
                     </a>
-                }
+
+                    <a href="https://linkedin.com/in/agustin-giuliani"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="LinkedIn">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+
+                </div>
 
             </div>
+
+            <div class="col-lg-5">
+
+                <div class="intro-visual">
+
+                    <div class="visual-decoration visual-decoration-one"></div>
+                    <div class="visual-decoration visual-decoration-two"></div>
+
+                    <div class="profile-image-container">
+                        <img src="~/img/agus.jpeg"
+                             alt="Fotografía de Agustín Giuliani"
+                             class="profile-image" />
+                    </div>
+
+                    <div class="profile-caption">
+                        <span class="caption-indicator"></span>
+                        Córdoba, Argentina
+                    </div>
+
+                    <div class="visual-code visual-code-top">
+                        <i class="bi bi-code-slash"></i>
+                        <span>Desarrollo</span>
+                    </div>
+
+                    <div class="visual-code visual-code-bottom">
+                        <i class="bi bi-database"></i>
+                        <span>Datos & SQL</span>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
     </section>
-}
 
-<!-- CONTACTO FINAL -->
-<section class="text-center py-5 my-4" data-aos="fade-up">
+    <!-- PROPUESTA PROFESIONAL -->
+    <section class="approach-section" data-aos="fade-up">
 
-    <h2 class="fw-bold">¿Trabajamos juntos?</h2>
+        <div class="approach-heading">
+            <span class="section-eyebrow">MI ENFOQUE</span>
+            <h2>Conocimiento técnico con una mirada práctica.</h2>
+            <p>
+                Mi recorrido profesional me permitió desarrollar una visión
+                que conecta la tecnología con las necesidades de las personas
+                y los procesos de negocio.
+            </p>
+        </div>
 
-    <p class="text-muted">
-        Estoy abierto a nuevas oportunidades profesionales
-        y proyectos relacionados con desarrollo y análisis de datos.
-    </p>
+        <div class="row g-3">
 
-    <a asp-controller="Home" asp-action="Contact"
-       class="btn btn-primary btn-lg mt-2">
-        <i class="bi bi-envelope me-2"></i>
-        Contactarme
-    </a>
+            <div class="col-md-4">
+                <article class="approach-card">
+                    <div class="approach-icon">
+                        <i class="bi bi-headset"></i>
+                    </div>
 
-</section>
+                    <h3>Resolución de problemas</h3>
 
+                    <p>
+                        Analizar incidencias, comprender su origen y buscar
+                        soluciones que permitan mejorar el funcionamiento
+                        de los sistemas.
+                    </p>
+                </article>
+            </div>
 
+            <div class="col-md-4">
+                <article class="approach-card">
+                    <div class="approach-icon">
+                        <i class="bi bi-code-square"></i>
+                    </div>
+
+                    <h3>Desarrollo de software</h3>
+
+                    <p>
+                        Aplicar conocimientos de programación y desarrollo
+                        backend para transformar ideas y necesidades
+                        en soluciones concretas.
+                    </p>
+                </article>
+            </div>
+
+            <div class="col-md-4">
+                <article class="approach-card">
+                    <div class="approach-icon">
+                        <i class="bi bi-bar-chart-line"></i>
+                    </div>
+
+                    <h3>Análisis de información</h3>
+
+                    <p>
+                        Trabajar con datos para validar información,
+                        detectar inconsistencias y obtener conclusiones
+                        útiles para la toma de decisiones.
+                    </p>
+                </article>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CIERRE -->
+    <section class="home-cta" data-aos="fade-up">
+
+        <span class="section-eyebrow">SIGAMOS EN CONTACTO</span>
+
+        <h2>¿Tenés un proyecto o una oportunidad?</h2>
+
+        <p>
+            Estoy abierto a nuevos desafíos profesionales,
+            proyectos y oportunidades para seguir creciendo
+            en el mundo de la tecnología.
+        </p>
+
+        <a asp-controller="Home"
+           asp-action="Contact"
+           class="btn btn-accent">
+            <i class="bi bi-envelope me-2"></i>
+            Contactarme
+        </a>
+
+    </section>
+
+</div>

@@ -594,3 +594,468 @@ footer {
         transition-duration: 0.01ms !important;
     }
 }
+
+
+/* =========================================
+   SOBRE MI
+========================================= */
+
+.about-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+}
+
+.about-header {
+    padding: 65px 0 55px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+    .about-header h1 {
+        color: var(--text-main);
+        font-size: clamp(2.8rem, 5vw, 4rem);
+        font-weight: 800;
+        letter-spacing: -2px;
+        margin-bottom: 15px;
+    }
+
+        .about-header h1 span {
+            background: linear-gradient(100deg, var(--accent-light), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+    .about-header p {
+        max-width: 650px;
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+        line-height: 1.8;
+        margin-bottom: 0;
+    }
+
+.about-section {
+    padding: 55px 0 10px;
+}
+
+.about-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    margin-bottom: 27px;
+}
+
+.about-section-icon {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(59, 130, 246, 0.12);
+    color: var(--accent-light);
+    font-size: 1.4rem;
+}
+
+.about-section-heading .section-eyebrow {
+    margin-bottom: 4px;
+}
+
+.about-section-heading h2 {
+    color: var(--text-main);
+    font-size: 1.65rem;
+    font-weight: 750;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+/* PERFIL */
+
+.about-panel {
+    padding: 30px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+}
+
+    .about-panel p {
+        color: var(--text-secondary);
+        font-size: 0.98rem;
+        line-height: 1.9;
+        margin-bottom: 17px;
+    }
+
+/* EXPERIENCIA */
+
+.experience-timeline {
+    position: relative;
+    padding-left: 25px;
+}
+
+    .experience-timeline::before {
+        content: "";
+        position: absolute;
+        left: 7px;
+        top: 10px;
+        bottom: 35px;
+        width: 2px;
+        background: linear-gradient( to bottom, var(--accent), var(--accent-purple), transparent );
+    }
+
+.experience-item {
+    position: relative;
+    padding-bottom: 25px;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -25px;
+    top: 28px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 4px solid var(--bg-main);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    z-index: 1;
+}
+
+.experience-card {
+    padding: 28px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    border-radius: 14px;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+    .experience-card:hover {
+        border-color: rgba(96, 165, 250, 0.4);
+        transform: translateY(-3px);
+    }
+
+.experience-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+    .experience-top h3 {
+        color: var(--text-main);
+        font-size: 1.3rem;
+        font-weight: 750;
+        margin-bottom: 6px;
+    }
+
+.experience-role {
+    color: var(--accent-light);
+    font-size: 0.92rem;
+    margin-bottom: 0;
+}
+
+.experience-date {
+    flex-shrink: 0;
+    color: var(--text-secondary);
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    padding: 7px 12px;
+    border-radius: 7px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.experience-list {
+    padding-left: 20px;
+    margin-bottom: 22px;
+}
+
+    .experience-list li {
+        color: var(--text-secondary);
+        font-size: 0.92rem;
+        line-height: 1.8;
+        padding-left: 5px;
+        margin-bottom: 9px;
+    }
+
+        .experience-list li::marker {
+            color: var(--accent-light);
+        }
+
+.about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+    .about-tags span,
+    .skill-list span {
+        color: #93c5fd;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 6px;
+        padding: 6px 11px;
+        font-size: 0.78rem;
+        font-weight: 600;
+    }
+
+/* COMPETENCIAS */
+
+.skill-card {
+    height: 100%;
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    border-radius: 13px;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+    .skill-card:hover {
+        border-color: rgba(96, 165, 250, 0.4);
+        transform: translateY(-3px);
+    }
+
+.skill-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 20px;
+}
+
+    .skill-card-heading i {
+        color: var(--accent-light);
+        font-size: 1.3rem;
+    }
+
+    .skill-card-heading h3 {
+        color: var(--text-main);
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+    .skill-list span {
+        color: var(--text-secondary);
+        background: rgba(148, 163, 184, 0.07);
+        border-color: var(--border-color);
+        font-weight: 500;
+    }
+
+/* EDUCACIÓN */
+
+.education-list {
+    display: grid;
+    gap: 15px;
+}
+
+.education-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 25px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 13px;
+}
+
+.education-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(59, 130, 246, 0.12);
+    color: var(--accent-light);
+    border-radius: 10px;
+    font-size: 1.3rem;
+}
+
+.education-card h3 {
+    color: var(--text-main);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.education-card p {
+    color: var(--text-secondary);
+    margin-bottom: 7px;
+}
+
+.education-card span {
+    color: var(--accent-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* CURSOS */
+
+.course-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    height: 100%;
+    padding: 25px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 13px;
+}
+
+.course-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-light);
+    background: rgba(59, 130, 246, 0.12);
+    border-radius: 10px;
+    font-size: 1.3rem;
+}
+
+.course-card h3 {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.course-provider {
+    display: block;
+    color: var(--accent-light);
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+}
+
+.course-status {
+    display: inline-block;
+    color: #86efac;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: 5px;
+    padding: 4px 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.course-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    margin-bottom: 0;
+}
+
+/* IDIOMAS */
+
+.language-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 13px;
+}
+
+    .language-card h3 {
+        color: var(--text-main);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .language-card p {
+        color: var(--text-secondary);
+        margin-bottom: 0;
+    }
+
+    .language-card > i {
+        color: var(--accent-light);
+        font-size: 1.7rem;
+    }
+
+/* CIERRE */
+
+.about-cta {
+    margin-top: 65px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .about-header {
+        padding: 45px 0 35px;
+    }
+
+    .about-section {
+        padding-top: 40px;
+    }
+
+    .about-section-heading h2 {
+        font-size: 1.35rem;
+    }
+
+    .experience-card {
+        padding: 22px;
+    }
+
+    .experience-top {
+        flex-direction: column;
+    }
+
+    .experience-date {
+        align-self: flex-start;
+    }
+
+    .experience-timeline {
+        padding-left: 22px;
+    }
+
+    .timeline-marker {
+        left: -22px;
+    }
+
+    .about-panel,
+    .skill-card,
+    .education-card,
+    .course-card {
+        padding: 21px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .about-header h1 {
+        font-size: 2.7rem;
+    }
+
+    .about-section-heading {
+        gap: 12px;
+    }
+
+    .about-section-icon {
+        width: 43px;
+        height: 43px;
+        font-size: 1.2rem;
+    }
+
+    .experience-list li {
+        font-size: 0.87rem;
+    }
+
+    .education-card,
+    .course-card {
+        gap: 13px;
+    }
+}

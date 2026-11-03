@@ -1,108 +1,461 @@
-﻿<div class="container">
+﻿@{
+    ViewData["Title"] = "Sobre mí";
+}
 
-    <!-- HEADER -->
-    <div class="text-center mb-5">
-        <h1>
-            <i class="bi bi-person-circle me-2"></i>Agustín Giuliani
-        </h1>
+<div class="about-page">
 
-        <p class="lead text-muted">
-            Desarrollador Backend / Data Analyst en formación
+    <!-- ENCABEZADO -->
+    <section class="about-header" data-aos="fade-up">
+
+        <span class="section-eyebrow">CONOCÉ MI RECORRIDO</span>
+
+        <h1>Sobre <span>mí.</span></h1>
+
+        <p>
+            Mi formación, experiencia y conocimientos en el mundo
+            del desarrollo de software y la tecnología.
         </p>
-    </div>
 
-    <!-- SOBRE MI -->
-    <div class="card shadow-sm border-0 mb-4" data-aos="fade-up">
-        <div class="card-body">
-            <h4 class="mb-3">
-                <i class="bi bi-person-workspace me-2"></i>Sobre mí
-            </h4>
+    </section>
 
-            <p>
-                Trabajo con sistemas ERP realizando consultas SQL, validación de datos y análisis de información,
-                lo que me permitió desarrollar una fuerte base analítica y comprensión de procesos de negocio.
-            </p>
+    <!-- PERFIL PROFESIONAL -->
+    <section class="about-section" data-aos="fade-up">
 
-            <p class="mb-0">
-                Actualmente amplío mis conocimientos en desarrollo backend con C# y análisis de datos con Python,
-                aplicando estos conocimientos en proyectos propios.
-            </p>
-        </div>
-    </div>
-
-    <!-- EXPERIENCIA -->
-    <div class="card shadow-sm border-0 mb-4" data-aos="fade-up">
-        <div class="card-body">
-
-            <h4 class="mb-4">
-                <i class="bi bi-briefcase-fill me-2"></i>Experiencia profesional
-            </h4>
-
-            <div class="border-start border-3 ps-3 mb-4">
-                <h6 class="mb-1">Flexxus</h6>
-                <small class="text-muted">Soporte ERP | 2024 - Actualidad</small>
-
-                <div class="mt-2">
-                    <span class="badge bg-dark">SQL</span>
-                    <span class="badge bg-dark">Firebird</span>
-                    <span class="badge bg-dark">ERP</span>
-                </div>
-            </div>
-
-            <div class="border-start border-3 ps-3 mb-4">
-                <h6 class="mb-1">EMSer</h6>
-                <small class="text-muted">Analista Funcional | 2023 - 2024</small>
-
-                <div class="mt-2">
-                    <span class="badge bg-secondary">Análisis</span>
-                    <span class="badge bg-secondary">Soporte</span>
-                </div>
-            </div>
-
-            <div class="border-start border-3 ps-3">
-                <h6 class="mb-1">Apex America</h6>
-                <small class="text-muted">Soporte Técnico | 2022 - 2023</small>
-
-                <div class="mt-2">
-                    <span class="badge bg-secondary">Soporte</span>
-                    <span class="badge bg-secondary">Clientes</span>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- STACK -->
-    <div class="card shadow-sm border-0" data-aos="fade-up">
-        <div class="card-body">
-
-            <h4 class="mb-4">
-                <i class="bi bi-cpu-fill me-2"></i>Stack técnico
-            </h4>
-
-            <div class="mb-3">
-                <strong>Lenguajes:</strong><br />
-                <span class="badge bg-primary">C#</span>
-                <span class="badge bg-primary">SQL</span>
-                <span class="badge bg-primary">Python</span>
-            </div>
-
-            <div class="mb-3">
-                <strong>Bases de datos:</strong><br />
-                <span class="badge bg-success">SQL Server</span>
-                <span class="badge bg-success">MySQL</span>
-                <span class="badge bg-success">Firebird</span>
+        <div class="about-section-heading">
+            <div class="about-section-icon">
+                <i class="bi bi-person-workspace"></i>
             </div>
 
             <div>
-                <strong>Herramientas:</strong><br />
-                <span class="badge bg-warning text-dark">ASP.NET Core</span>
-                <span class="badge bg-warning text-dark">Git</span>
-                <span class="badge bg-warning text-dark">Visual Studio</span>
-                <span class="badge bg-warning text-dark">IBExpert</span>
+                <span class="section-eyebrow">PRESENTACIÓN</span>
+                <h2>Perfil profesional</h2>
+            </div>
+        </div>
+
+        <div class="about-panel">
+
+            <p>
+                Soy Técnico Superior en Desarrollo de Software con experiencia
+                en soporte técnico de sistemas ERP, análisis funcional,
+                gestión de incidencias y atención a clientes corporativos.
+            </p>
+
+            <p>
+                Realizo consultas y validaciones SQL sobre bases de datos
+                Firebird mediante IBExpert, análisis de inconsistencias
+                y documentación de errores.
+            </p>
+
+            <p class="mb-0">
+                Cuento además con formación y proyectos en C#, .NET,
+                ASP.NET Core MVC y análisis de datos.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- EXPERIENCIA PROFESIONAL -->
+    <section class="about-section" data-aos="fade-up">
+
+        <div class="about-section-heading">
+            <div class="about-section-icon">
+                <i class="bi bi-briefcase"></i>
+            </div>
+
+            <div>
+                <span class="section-eyebrow">TRAYECTORIA</span>
+                <h2>Experiencia profesional</h2>
+            </div>
+        </div>
+
+        <div class="experience-timeline">
+
+            <!-- FLEXXUS -->
+            <article class="experience-item">
+
+                <div class="timeline-marker"></div>
+
+                <div class="experience-card">
+
+                    <div class="experience-top">
+                        <div>
+                            <h3>Flexxus</h3>
+                            <p class="experience-role">
+                                Soporte Técnico / Analista Funcional ERP
+                            </p>
+                        </div>
+
+                        <span class="experience-date">
+                            Abril 2024 - Actualidad
+                        </span>
+                    </div>
+
+                    <ul class="experience-list">
+                        <li>
+                            Brindo soporte técnico y funcional a usuarios
+                            de sistemas ERP y clientes corporativos.
+                        </li>
+                        <li>
+                            Analizo incidencias y verifico el comportamiento
+                            del sistema para identificar posibles causas.
+                        </li>
+                        <li>
+                            Realizo consultas y validaciones de información
+                            en Firebird mediante IBExpert, incluidas
+                            consultas a medida.
+                        </li>
+                        <li>
+                            Analizo datos para detectar inconsistencias
+                            y elaboro reportes de errores para el área
+                            de garantía.
+                        </li>
+                        <li>
+                            Registro y hago seguimiento de incidencias
+                            en sistemas internos, colaborando con
+                            los equipos involucrados.
+                        </li>
+                    </ul>
+
+                    <div class="about-tags">
+                        <span>Soporte ERP</span>
+                        <span>SQL</span>
+                        <span>Firebird</span>
+                        <span>IBExpert</span>
+                        <span>Análisis funcional</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- EMSER -->
+            <article class="experience-item">
+
+                <div class="timeline-marker"></div>
+
+                <div class="experience-card">
+
+                    <div class="experience-top">
+                        <div>
+                            <h3>EMSer</h3>
+                            <p class="experience-role">
+                                Analista Funcional / Soporte Técnico
+                            </p>
+                        </div>
+
+                        <span class="experience-date">
+                            2024
+                        </span>
+                    </div>
+
+                    <ul class="experience-list">
+                        <li>
+                            Analicé incidencias en aplicaciones empresariales,
+                            diagnosticando errores funcionales y técnicos.
+                        </li>
+                        <li>
+                            Validé procesos, documenté incidentes y realicé
+                            seguimiento de casos reportados.
+                        </li>
+                        <li>
+                            Relevé necesidades de usuarios finales y colaboré
+                            con equipos de desarrollo para resolver problemas.
+                        </li>
+                    </ul>
+
+                    <div class="about-tags">
+                        <span>Análisis funcional</span>
+                        <span>Soporte técnico</span>
+                        <span>Testing funcional</span>
+                        <span>Documentación</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- COMPETENCIAS TÉCNICAS -->
+    <section class="about-section" data-aos="fade-up">
+
+        <div class="about-section-heading">
+            <div class="about-section-icon">
+                <i class="bi bi-cpu"></i>
+            </div>
+
+            <div>
+                <span class="section-eyebrow">CONOCIMIENTOS</span>
+                <h2>Competencias técnicas</h2>
+            </div>
+        </div>
+
+        <div class="row g-3">
+
+            <div class="col-lg-6">
+
+                <article class="skill-card">
+
+                    <div class="skill-card-heading">
+                        <i class="bi bi-headset"></i>
+                        <h3>Soporte y análisis funcional</h3>
+                    </div>
+
+                    <div class="skill-list">
+                        <span>Soporte ERP</span>
+                        <span>Soporte de aplicaciones</span>
+                        <span>Diagnóstico de incidentes</span>
+                        <span>Gestión de tickets</span>
+                        <span>Relevamiento de requerimientos</span>
+                        <span>Validación de procesos</span>
+                        <span>Testing funcional</span>
+                        <span>Documentación y reportes</span>
+                    </div>
+
+                </article>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <article class="skill-card">
+
+                    <div class="skill-card-heading">
+                        <i class="bi bi-database"></i>
+                        <h3>Bases de datos</h3>
+                    </div>
+
+                    <div class="skill-list">
+                        <span>SQL</span>
+                        <span>Firebird</span>
+                        <span>IBExpert</span>
+                        <span>SQL Server</span>
+                        <span>MySQL</span>
+                        <span>Validación de datos</span>
+                    </div>
+
+                </article>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <article class="skill-card">
+
+                    <div class="skill-card-heading">
+                        <i class="bi bi-code-slash"></i>
+                        <h3>Desarrollo de software</h3>
+                    </div>
+
+                    <div class="skill-list">
+                        <span>C#</span>
+                        <span>.NET</span>
+                        <span>ASP.NET Core MVC</span>
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>JavaScript</span>
+                        <span>Git</span>
+                        <span>GitHub</span>
+                    </div>
+
+                </article>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <article class="skill-card">
+
+                    <div class="skill-card-heading">
+                        <i class="bi bi-bar-chart-line"></i>
+                        <h3>Análisis de datos</h3>
+                    </div>
+
+                    <div class="skill-list">
+                        <span>Python</span>
+                        <span>Excel</span>
+                        <span>Power BI</span>
+                    </div>
+
+                </article>
+
             </div>
 
         </div>
-    </div>
+
+    </section>
+
+    <!-- EDUCACIÓN -->
+    <section class="about-section" data-aos="fade-up">
+
+        <div class="about-section-heading">
+            <div class="about-section-icon">
+                <i class="bi bi-mortarboard"></i>
+            </div>
+
+            <div>
+                <span class="section-eyebrow">FORMACIÓN ACADÉMICA</span>
+                <h2>Educación</h2>
+            </div>
+        </div>
+
+        <div class="education-list">
+
+            <article class="education-card">
+
+                <div class="education-icon">
+                    <i class="bi bi-mortarboard-fill"></i>
+                </div>
+
+                <div>
+                    <h3>Técnico Superior en Desarrollo de Software</h3>
+
+                    <p>
+                        Instituto Técnico Superior Córdoba
+                    </p>
+
+                    <span>2018 - 2021</span>
+                </div>
+
+            </article>
+
+            <article class="education-card">
+
+                <div class="education-icon">
+                    <i class="bi bi-book"></i>
+                </div>
+
+                <div>
+                    <h3>Bachiller con orientación en Arte Audiovisual</h3>
+
+                    <p>
+                        Escuela Normal Superior Dr. Agustín Garzón Agulla
+                    </p>
+
+                    <span>2012 - 2017</span>
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- FORMACIÓN COMPLEMENTARIA -->
+    <section class="about-section" data-aos="fade-up">
+
+        <div class="about-section-heading">
+            <div class="about-section-icon">
+                <i class="bi bi-journal-code"></i>
+            </div>
+
+            <div>
+                <span class="section-eyebrow">APRENDIZAJE CONTINUO</span>
+                <h2>Cursos y formación complementaria</h2>
+            </div>
+        </div>
+
+        <div class="row g-3">
+
+            <div class="col-md-6">
+
+                <article class="course-card">
+
+                    <div class="course-icon">
+                        <i class="bi bi-bar-chart"></i>
+                    </div>
+
+                    <div>
+                        <h3>Data Science</h3>
+                        <span class="course-provider">Coderhouse</span>
+
+                        <span class="course-status">En curso</span>
+
+                        <p>
+                            Python, análisis y visualización de datos,
+                            estadística aplicada.
+                        </p>
+                    </div>
+
+                </article>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <article class="course-card">
+
+                    <div class="course-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+
+                    <div>
+                        <h3>Ciberseguridad</h3>
+                        <span class="course-provider">Coderhouse</span>
+
+                        <p>
+                            Conceptos de seguridad informática y buenas
+                            prácticas de protección de sistemas y datos.
+                        </p>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- IDIOMAS -->
+    <section class="about-section" data-aos="fade-up">
+
+        <div class="about-section-heading">
+            <div class="about-section-icon">
+                <i class="bi bi-translate"></i>
+            </div>
+
+            <div>
+                <span class="section-eyebrow">COMUNICACIÓN</span>
+                <h2>Idiomas</h2>
+            </div>
+        </div>
+
+        <div class="language-card">
+
+            <div>
+                <h3>Inglés</h3>
+                <p>Nivel básico</p>
+            </div>
+
+            <i class="bi bi-globe2"></i>
+
+        </div>
+
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="home-cta about-cta" data-aos="fade-up">
+
+        <span class="section-eyebrow">¿CONECTAMOS?</span>
+
+        <h2>Conozcamos nuevas oportunidades.</h2>
+
+        <p>
+            Estoy abierto a nuevos desafíos profesionales,
+            proyectos y oportunidades de colaboración.
+        </p>
+
+        <a asp-controller="Home"
+           asp-action="Contact"
+           class="btn btn-accent">
+            <i class="bi bi-envelope me-2"></i>
+            Contactarme
+        </a>
+
+    </section>
 
 </div>

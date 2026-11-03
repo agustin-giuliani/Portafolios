@@ -25,8 +25,6 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: http://+:8080
-      ADMIN_EMAIL: ${ADMIN_EMAIL}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
       ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=portafoliodb;Username=portafolio;Password=${POSTGRES_PASSWORD}"
     ports:
       - "8080:8080"

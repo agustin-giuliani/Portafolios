@@ -1,26 +1,207 @@
+
+/* =========================================
+   CONFIGURACIÓN GENERAL
+========================================= */
+
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    min-height: 100vh;
 }
-.card:hover {
-    transform: scale(1.02);
-    transition: 0.3s;
+
+/* Accesibilidad: foco de controles */
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* =========================================
+   NAVEGACIÓN
+========================================= */
+
+.navbar {
+    backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+    letter-spacing: -0.3px;
+    font-weight: 700;
+}
+
+.nav-link {
+    transition: color 0.2s ease;
+}
+
+    .nav-link:hover {
+        color: #ffffff !important;
+    }
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero-section {
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-image-container {
+    width: 280px;
+    height: 280px;
+    padding: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid white;
+}
+
+/* =========================================
+   TÍTULOS Y SECCIONES
+========================================= */
+
+.section-heading {
+    border-left: 4px solid #0d6efd;
+    padding-left: 16px;
+}
+
+    .section-heading h2 {
+        font-size: 1.9rem;
+    }
+
+/* =========================================
+   TARJETAS
+========================================= */
+
+.card {
+    border-radius: 12px;
+}
+
+.featured-project {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+    .featured-project:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10) !important;
+    }
+
+.project-icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background: #eef4ff;
+    color: #0d6efd;
+    font-size: 1.6rem;
+}
+
+/* =========================================
+   TECNOLOGÍAS
+========================================= */
+
+.tech-badge {
+    display: inline-block;
+    background: #eef4ff;
+    color: #0d6efd;
+    border: 1px solid #d7e5ff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin: 3px;
+    transition: all 0.2s ease;
+}
+
+    .tech-badge:hover {
+        background: #0d6efd;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+/* =========================================
+   BOTONES
+========================================= */
+
+.btn {
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(13, 110, 253, 0.2);
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    margin-top: auto;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .hero-section {
+        text-align: center;
+    }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+        }
+
+    .profile-image-container {
+        width: 220px;
+        height: 220px;
+    }
+
+    .section-heading h2 {
+        font-size: 1.6rem;
+    }
+
+    .hero-section .d-flex {
+        justify-content: center;
+    }
+}
+
+/* =========================================
+   MOVIMIENTO REDUCIDO
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
 }

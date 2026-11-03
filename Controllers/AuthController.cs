@@ -16,20 +16,42 @@ namespace Portafolio.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            return View(new LoginViewModel());
         }
 
         [HttpPost]
-        public IActionResult Login(string email, string password)
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(LoginViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                ModelState.Remove(nameof(model.Password));
+                model.Password = string.Empty;
+
+                return View(model);
+            }
+
+            string email = model.Email.Trim();
+
             var user = _context.Usuarios
                 .FirstOrDefault(u => u.Email == email);
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+            if (user == null ||
+                !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash) ||
+                user.Rol != "Admin")
             {
-                ViewBag.Error = "Credenciales inválidas";
-                return View();
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Credenciales inválidas."
+                );
+
+                ModelState.Remove(nameof(model.Password));
+                model.Password = string.Empty;
+
+                return View(model);
             }
+
+            HttpContext.Session.Clear();
 
             HttpContext.Session.SetString("UserRole", user.Rol);
             HttpContext.Session.SetString("UserEmail", user.Email);
@@ -37,11 +59,13 @@ namespace Portafolio.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+
+            return RedirectToAction(nameof(Login));
         }
     }
-
 }

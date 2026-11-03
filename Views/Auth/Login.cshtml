@@ -1,4 +1,6 @@
-﻿@{
+﻿@model TuProyecto.Models.LoginViewModel
+
+@{
     ViewData["Title"] = "Login";
 }
 
@@ -8,25 +10,50 @@
 
             <h3 class="text-center mb-4">Iniciar sesión</h3>
 
-            @if (ViewBag.Error != null)
-            {
-                <div class="alert alert-danger">
-                    @ViewBag.Error
-                </div>
-            }
+            <form asp-controller="Auth"
+                  asp-action="Login"
+                  method="post">
 
-            <form method="post">
-                <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control" required />
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="alert alert-danger">
                 </div>
 
                 <div class="mb-3">
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control" required />
+                    <label asp-for="Email" class="form-label">
+                        Email
+                    </label>
+
+                    <input asp-for="Email"
+                           type="email"
+                           class="form-control"
+                           autocomplete="username"
+                           required />
+
+                    <span asp-validation-for="Email"
+                          class="text-danger">
+                    </span>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">
+                        Contraseña
+                    </label>
+
+                    <input asp-for="Password"
+                           type="password"
+                           class="form-control"
+                           autocomplete="current-password"
+                           required />
+
+                    <span asp-validation-for="Password"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary w-100">
                     Ingresar
                 </button>
             </form>

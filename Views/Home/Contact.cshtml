@@ -1,44 +1,145 @@
-﻿<div class="container py-5">
-    <h1 class="mb-5 text-center" data-aos="zoom-in">
-        <i class="bi bi-envelope-paper me-2"></i>Contacto
-    </h1>
+﻿@{
+    ViewData["Title"] = "Contacto";
+}
 
-    <p class="text-center text-muted mb-5">
-        Podés encontrarme en las siguientes plataformas profesionales
-    </p>
+<div class="contact-page">
 
-    <div class="row justify-content-center">
-        <div class="col-lg-6" data-aos="fade-up">
+    <!-- ENCABEZADO -->
+    <section class="contact-header" data-aos="fade-up">
 
-            <div class="card shadow-sm border-0 text-center">
-                <div class="card-body">
+        <span class="section-eyebrow">CONTACTO</span>
 
-                    <h4 class="mb-4">
-                        <i class="bi bi-person-lines-fill me-2"></i>Mis redes
-                    </h4>
+        <h1>Hablemos de <span>tu próximo proyecto.</span></h1>
 
-                    <div class="d-flex flex-column gap-3 fs-5">
+        <p>
+            ¿Tenés una propuesta laboral, un proyecto o simplemente querés
+            intercambiar ideas? Estoy disponible para conectar y conocer
+            nuevas oportunidades.
+        </p>
 
-                        <div class="border rounded p-2">
-                            <i class="bi bi-envelope-at-fill text-primary me-2"></i>
-                            agustingiuliani45giuliani@gmail.com
+    </section>
+
+    <!-- CONTENIDO -->
+    <section class="contact-content">
+
+        <div class="row g-4">
+
+            <!-- INFORMACIÓN -->
+            <div class="col-lg-7" data-aos="fade-up">
+
+                <div class="contact-main-card">
+
+                    <span class="section-eyebrow">CONECTEMOS</span>
+
+                    <h2>¿En qué podemos trabajar juntos?</h2>
+
+                    <p>
+                        Me interesa participar en proyectos relacionados
+                        con desarrollo de software, tecnología y análisis
+                        de datos. Si buscás incorporar a alguien con
+                        experiencia en sistemas ERP, SQL y formación
+                        en desarrollo backend, me gustaría conocerte.
+                    </p>
+
+                    <div class="contact-email-block">
+
+                        <div class="contact-item-icon">
+                            <i class="bi bi-envelope-at"></i>
                         </div>
 
-                        <a href="https://github.com/agustin-giuliani" target="_blank" class="btn btn-outline-dark">
-                            <i class="bi bi-github me-2"></i>
-                            GitHub
-                        </a>
+                        <div class="contact-item-info">
+                            <span>Correo electrónico</span>
 
-                        <a href="https://linkedin.com/in/agustin-giuliani" target="_blank" class="btn btn-outline-primary">
-                            <i class="bi bi-linkedin me-2"></i>
-                            LinkedIn
+                            <a href="mailto:agustingiuliani45giuliani@gmail.com">
+                                agustingiuliani45giuliani@gmail.com
+                            </a>
+                        </div>
+
+                        <a class="contact-item-action"
+                           href="mailto:agustingiuliani45giuliani@gmail.com"
+                           aria-label="Enviar correo electrónico">
+                            <i class="bi bi-arrow-up-right"></i>
                         </a>
 
                     </div>
 
                 </div>
+
+            </div>
+
+            <!-- REDES PROFESIONALES -->
+            <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="contact-social-card">
+
+                    <span class="section-eyebrow">ENCONTRAME EN</span>
+
+                    <h2>Mis perfiles profesionales</h2>
+
+                    <a href="https://github.com/agustin-giuliani"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="social-link-card">
+
+                        <div class="social-icon github-icon">
+                            <i class="bi bi-github"></i>
+                        </div>
+
+                        <div class="social-link-info">
+                            <h3>GitHub</h3>
+                            <span>Mis proyectos y repositorios</span>
+                        </div>
+
+                        <i class="bi bi-arrow-up-right social-arrow"></i>
+
+                    </a>
+
+                    <a href="https://linkedin.com/in/agustin-giuliani"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="social-link-card">
+
+                        <div class="social-icon linkedin-icon">
+                            <i class="bi bi-linkedin"></i>
+                        </div>
+
+                        <div class="social-link-info">
+                            <h3>LinkedIn</h3>
+                            <span>Mi perfil profesional</span>
+                        </div>
+
+                        <i class="bi bi-arrow-up-right social-arrow"></i>
+
+                    </a>
+
+                </div>
+
             </div>
 
         </div>
-    </div>
+
+    </section>
+
+    <!-- CIERRE -->
+    <section class="contact-footer" data-aos="fade-up">
+
+        <div class="contact-footer-icon">
+            <i class="bi bi-chat-dots"></i>
+        </div>
+
+        <h2>Las buenas oportunidades empiezan con una conversación.</h2>
+
+        <p>
+            Gracias por visitar mi portfolio y conocer un poco más
+            sobre mi recorrido profesional.
+        </p>
+
+        <a href="mailto:agustingiuliani45giuliani@gmail.com"
+           class="btn btn-accent">
+            <i class="bi bi-envelope me-2"></i>
+            Escribirme
+        </a>
+
+    </section>
+
 </div>

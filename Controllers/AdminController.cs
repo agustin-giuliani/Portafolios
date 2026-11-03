@@ -20,6 +20,53 @@ namespace Portafolio.Controllers
             _env = env;
         }
 
+        private string? ObtenerRutaArchivoSeguro(string? archivoRuta)
+        {
+            if (string.IsNullOrWhiteSpace(archivoRuta))
+                return null;
+
+            string rutaNormalizada = archivoRuta.Replace('\\', '/');
+
+            const string prefijo = "/uploads/";
+
+            if (!rutaNormalizada.StartsWith(
+                prefijo,
+                StringComparison.OrdinalIgnoreCase))
+            {
+                return null;
+            }
+
+            string nombreArchivo = rutaNormalizada.Substring(prefijo.Length);
+
+            // No permitir subdirectorios ni rutas relativas.
+            if (string.IsNullOrWhiteSpace(nombreArchivo) ||
+                nombreArchivo != Path.GetFileName(nombreArchivo))
+            {
+                return null;
+            }
+
+            string carpetaUploads = Path.GetFullPath(
+                Path.Combine(_env.WebRootPath, "uploads"));
+
+            if (!Directory.Exists(carpetaUploads))
+                return null;
+
+            string rutaCompleta = Path.GetFullPath(
+                Path.Combine(carpetaUploads, nombreArchivo));
+
+            string prefijoSeguro = carpetaUploads +
+                Path.DirectorySeparatorChar;
+
+            if (!rutaCompleta.StartsWith(
+                prefijoSeguro,
+                StringComparison.OrdinalIgnoreCase))
+            {
+                return null;
+            }
+
+            return rutaCompleta;
+        }
+
         //  PROTECCIÓN DEL ADMIN
         public override void OnActionExecuting(ActionExecutingContext context)
         {
@@ -77,7 +124,7 @@ namespace Portafolio.Controllers
                 {
                     // Extensiones permitidas
                     var extensionesPermitidas = new[] { ".pdf", ".zip", ".png", ".jpg", ".jpeg", ".xlsx", ".pbix" };
-                    var extensionArchivo = Path.GetExtension(proyecto.ArchivoProyecto.FileName).ToLower();
+                    var extensionArchivo = Path.GetExtension(proyecto.ArchivoProyecto.FileName).ToLowerInvariant();
 
                     if (!extensionesPermitidas.Contains(extensionArchivo))
                     {
@@ -97,10 +144,14 @@ namespace Portafolio.Controllers
                         Directory.CreateDirectory(uploadsFolder);
 
                     // Nombre único
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + proyecto.ArchivoProyecto.FileName;
+                    string uniqueFileName = $"{Guid.NewGuid():N}{extensionArchivo}";
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    using (var fileStream = new FileStream(
+                        filePath,
+                        FileMode.CreateNew,
+                        FileAccess.Write,
+                        FileShare.None))
                     {
                         proyecto.ArchivoProyecto.CopyTo(fileStream);
                     }
@@ -137,68 +188,155 @@ namespace Portafolio.Controllers
         // POST: Admin/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Proyecto proyecto, IFormFile ArchivoProyecto)
+        public async Task<IActionResult> Edit(int id, Proyecto proyecto, IFormFile? ArchivoProyecto)
         {
             if (id != proyecto.Id)
                 return NotFound();
 
             var proyectoDb = await _context.Proyectos.FindAsync(id);
+
             if (proyectoDb == null)
                 return NotFound();
 
-            if (ModelState.IsValid)
+            // Evitamos validar propiedades que no se editan desde este formulario.
+            ModelState.Remove(nameof(Proyecto.ArchivoRuta));
+            ModelState.Remove(nameof(Proyecto.ArchivoProyecto));
+
+            // Si el modelo no es válido, no guardamos los cambios.
+            if (!ModelState.IsValid)
+                return View(proyecto);
+
+            string? nuevaRutaArchivo = null;
+            string? rutaArchivoAnterior = proyectoDb.ArchivoRuta;
+
+            // Validar el archivo nuevo, si se adjuntó uno.
+            if (ArchivoProyecto != null && ArchivoProyecto.Length > 0)
             {
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-                foreach (var e in errors)
+                var extensionesPermitidas = new[]
                 {
-                    Console.WriteLine(e.ErrorMessage);
+                    ".pdf", ".zip", ".png", ".jpg",
+                    ".jpeg", ".xlsx", ".pbix"
+                };
+
+                string extension = Path.GetExtension(ArchivoProyecto.FileName)
+                    .ToLowerInvariant();
+
+                if (!extensionesPermitidas.Contains(extension))
+                {
+                    ModelState.AddModelError(
+                        "ArchivoProyecto",
+                        "Formato no permitido. Solo: PDF, ZIP, PNG, JPG, XLSX, PBIX."
+                    );
+
+                    return View(proyecto);
                 }
-            }
-            else
-            {
-                proyectoDb.Titulo = proyecto.Titulo;
-                proyectoDb.Descripcion = proyecto.Descripcion;
-                proyectoDb.Tecnologias = proyecto.Tecnologias;
-                proyectoDb.Publicado = proyecto.Publicado;
 
-                // ✅ Si se sube un archivo nuevo
-                if (ArchivoProyecto != null && ArchivoProyecto.Length > 0)
+                const long tamanioMaximo = 20 * 1024 * 1024;
+
+                if (ArchivoProyecto.Length > tamanioMaximo)
                 {
-                    string uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
-                    if (!Directory.Exists(uploadsFolder))
-                        Directory.CreateDirectory(uploadsFolder);
+                    ModelState.AddModelError(
+                        "ArchivoProyecto",
+                        "El archivo no puede superar los 20 MB."
+                    );
 
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + ArchivoProyecto.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    return View(proyecto);
+                }
 
-                    using (var stream = new FileStream(filePath, FileMode.Create))
+                string uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
+
+                Directory.CreateDirectory(uploadsFolder);
+
+                // Nombre aleatorio. No conservamos el nombre original.
+                string uniqueFileName = $"{Guid.NewGuid():N}{extension}";
+
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                try
+                {
+                    using (var stream = new FileStream(
+                        filePath,
+                        FileMode.CreateNew,
+                        FileAccess.Write,
+                        FileShare.None))
                     {
                         await ArchivoProyecto.CopyToAsync(stream);
                     }
 
-                    proyectoDb.ArchivoRuta = "/uploads/" + uniqueFileName;
-                    proyectoDb.Url = null; // si hay archivo, limpiamos URL
+                    nuevaRutaArchivo = "/uploads/" + uniqueFileName;
                 }
-                else
+                catch
                 {
-                    // ✅ Si no hay archivo, guardamos la URL que venga del form
-                    if (string.IsNullOrWhiteSpace(proyecto.Url))
-                    {
-                        proyectoDb.Url = null; // si el admin borra la URL, la limpiamos
-                    }
-                    else
-                    {
-                        proyectoDb.Url = proyecto.Url;
-                    }
+                    if (System.IO.File.Exists(filePath))
+                        System.IO.File.Delete(filePath);
+
+                    throw;
                 }
-                _context.Update(proyectoDb);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
 
-            return View(proyecto);
-        }
+            // Actualizar únicamente los campos permitidos.
+            proyectoDb.Titulo = proyecto.Titulo;
+            proyectoDb.Descripcion = proyecto.Descripcion;
+            proyectoDb.Tecnologias = proyecto.Tecnologias;
+            proyectoDb.Publicado = proyecto.Publicado;
 
+            if (nuevaRutaArchivo != null)
+            {
+                proyectoDb.ArchivoRuta = nuevaRutaArchivo;
+                proyectoDb.Url = null;
+            }
+            else
+            {
+                proyectoDb.Url = string.IsNullOrWhiteSpace(proyecto.Url)
+                    ? null
+                    : proyecto.Url.Trim();
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                // Si falla la base de datos, eliminamos el archivo nuevo
+                // para no dejar archivos huérfanos.
+                if (nuevaRutaArchivo != null)
+                {
+                    string nuevoArchivo = Path.Combine(
+                        _env.WebRootPath,
+                        nuevaRutaArchivo.TrimStart('/').Replace(
+                            '/',
+                            Path.DirectorySeparatorChar
+                        )
+                    );
+
+                    if (System.IO.File.Exists(nuevoArchivo))
+                        System.IO.File.Delete(nuevoArchivo);
+                }
+
+                throw;
+            }
+
+            // Si todo salió bien, eliminamos el archivo anterior.
+            if (nuevaRutaArchivo != null &&
+                !string.IsNullOrWhiteSpace(rutaArchivoAnterior))
+            {
+                string rutaAnterior = rutaArchivoAnterior.Replace('\\', '/');
+                if (nuevaRutaArchivo != null &&
+                    !string.IsNullOrWhiteSpace(rutaArchivoAnterior))
+                {
+                    string? archivoAnterior = ObtenerRutaArchivoSeguro(rutaArchivoAnterior);
+
+                    if (archivoAnterior != null &&
+                        System.IO.File.Exists(archivoAnterior))
+                    {
+                        System.IO.File.Delete(archivoAnterior);
+                    }
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
 
 
 
@@ -211,46 +349,49 @@ namespace Portafolio.Controllers
             return View(proyecto);
         }
 
-        // POST: /Admin/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var proyecto = _context.Proyectos.Find(id);
-            if (proyecto != null)
-            {
-                // Eliminar archivo único
-                if (!string.IsNullOrEmpty(proyecto.ArchivoRuta))
-                {
-                    string rutaArchivo = Path.Combine(_env.WebRootPath, proyecto.ArchivoRuta.TrimStart('/'));
-                    if (System.IO.File.Exists(rutaArchivo))
-                    {
-                        System.IO.File.Delete(rutaArchivo);
-                    }
-                }
+            var proyecto = await _context.Proyectos.FindAsync(id);
 
-                _context.Proyectos.Remove(proyecto);
-                _context.SaveChanges();
+            if (proyecto == null)
+                return NotFound();
+
+            string? rutaArchivo = ObtenerRutaArchivoSeguro(proyecto.ArchivoRuta);
+
+            _context.Proyectos.Remove(proyecto);
+            await _context.SaveChangesAsync();
+
+            if (rutaArchivo != null && System.IO.File.Exists(rutaArchivo))
+            {
+                System.IO.File.Delete(rutaArchivo);
             }
 
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult DescargarArchivo(int id)
+        [HttpGet]
+        public async Task<IActionResult> DescargarArchivo(int id)
         {
-            var proyecto = _context.Proyectos.Find(id);
-            if (proyecto == null || string.IsNullOrEmpty(proyecto.ArchivoRuta))
+            var proyecto = await _context.Proyectos.FindAsync(id);
+
+            if (proyecto == null || string.IsNullOrWhiteSpace(proyecto.ArchivoRuta))
                 return NotFound();
 
-            string rutaCompleta = Path.Combine(_env.WebRootPath, proyecto.ArchivoRuta.TrimStart('/'));
+            string? rutaArchivo = ObtenerRutaArchivoSeguro(proyecto.ArchivoRuta);
 
-            if (!System.IO.File.Exists(rutaCompleta))
+            if (rutaArchivo == null || !System.IO.File.Exists(rutaArchivo))
                 return NotFound();
 
-            string contentType = "application/octet-stream"; // fuerza descarga
-            string nombreDescarga = Path.GetFileName(proyecto.ArchivoRuta);
+            string nombreDescarga = Path.GetFileName(rutaArchivo);
 
-            return File(System.IO.File.ReadAllBytes(rutaCompleta), contentType, nombreDescarga);
+            return PhysicalFile(
+                rutaArchivo,
+                "application/octet-stream",
+                nombreDescarga
+            );
         }
 
     }
